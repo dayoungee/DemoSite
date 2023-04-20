@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Demo Site</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div class="jumbotron my-5">
+        <div>
+            <table class="table table-hover table-striped text-center ">
+                <thead class="table-primary">
+                <th>번호</th>
+                <th>제목</th>
+                <th>글쓴이</th>
+                <th>조회수</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>title</td>
+                    <td>글쓴이</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>title</td>
+                    <td>글쓴이</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>title</td>
+                    <td>글쓴이</td>
+                    <td>2</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <ul class="pagination justify-content-center">
+                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> ◀ </a></li>
+                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 1 </a></li>
+                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 2 </a></li>
+                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 3 </a></li>
+                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 4 </a></li>
+                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 5 </a></li>
+                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> ▶ </a></li>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

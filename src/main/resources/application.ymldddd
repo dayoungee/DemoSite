@@ -1,0 +1,18 @@
+#DBCP??
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo
+    username: root
+    password: 0711
+    hikari:
+      maximum-pool-size: 4
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #         show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
