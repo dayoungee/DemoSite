@@ -15,30 +15,34 @@
                 <th>제목</th>
                 <th>글쓴이</th>
                 <th>조회수</th>
+                <th>등록일</th>
                 </thead>
+
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>title</td>
-                    <td>글쓴이</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>title</td>
-                    <td>글쓴이</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>title</td>
-                    <td>글쓴이</td>
-                    <td>2</td>
+                <tr th:each="post : ${posts}">
+                    <td>
+                        <span th:text="${post.id}"></span>
+                    </td>
+                    <td>
+                        <a th:href="@{'/posts/' + ${post.id}}" style="text-decoration: none;">
+                            <span th:text="${post.title}" ></span>
+                        </a>
+                    </td>
+                    <td>
+                        <span th:text="${post.writer}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${post.view}"></span>
+                    </td>
+                    <td>
+                        <span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <div>
+            <a href="/posts/new" class="btn btn-secondary btn-sm" style="float:right">글쓰기</a>
             <ul class="pagination justify-content-center">
                 <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> ◀ </a></li>
                 <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 1 </a></li>
@@ -47,6 +51,7 @@
                 <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 4 </a></li>
                 <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 5 </a></li>
                 <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> ▶ </a></li>
+            </ul>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer"/>

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Demo Site</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form action="/posts/new" method="post">
+        <div class="jumbotron my-5">
+            <div class="form-group">
+                <label>제목</label>
+                <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label>작성자</label>
+                <input type="text" class="form-control" name="writer" placeholder="닉네임을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label>내용</label>
+                <textarea rows="10" class="form-control" name="content" placeholder="내용을 입력하세요"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary  my-2"> 작성</button>
+            <a href="/" role="button" class="btn btn-danger my-2">취소</a>
+        </div>
+    </form>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>
