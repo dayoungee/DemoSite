@@ -2,7 +2,7 @@ package com.web.demo.controller;
 
 import com.web.demo.post.domain.Posts;
 import com.web.demo.post.domain.PostsRepository;
-import com.web.demo.post.dto.PostsRequestDto;
+import com.web.demo.post.dto.PostsDto;
 import com.web.demo.post.service.PostsService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,7 +39,7 @@ public class PostsControllerTest {
         String writer = "작성자";
         String content = "컨텐츠";
         int view = 3;
-        PostsRequestDto postsRequestDto = PostsRequestDto.builder()
+        PostsDto.Request postsRequestDto = PostsDto.Request.builder()
                 .content(content)
                 .title(title)
                 .writer(writer)

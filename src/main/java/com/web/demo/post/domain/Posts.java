@@ -24,4 +24,9 @@ public class Posts extends BaseTimeEntity {
     private String writer;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
+
+    public void update(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
 }

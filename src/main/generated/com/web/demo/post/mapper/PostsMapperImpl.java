@@ -1,8 +1,7 @@
 package com.web.demo.post.mapper;
 
 import com.web.demo.post.domain.Posts;
-import com.web.demo.post.dto.PostsRequestDto;
-import com.web.demo.post.dto.PostsResponseDto;
+
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
