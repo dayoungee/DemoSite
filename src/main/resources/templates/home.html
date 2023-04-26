@@ -25,7 +25,7 @@
                     </td>
                     <td>
                         <a th:href="@{'/posts/' + ${post.id}}" style="text-decoration: none;">
-                            <span th:text="${post.title}" ></span>
+                            <span th:text="${post.title}"></span>
                         </a>
                     </td>
                     <td>
@@ -43,15 +43,19 @@
         </div>
         <div>
             <a href="/posts/new" class="btn btn-secondary btn-sm" style="float:right">글쓰기</a>
-            <ul class="pagination justify-content-center">
-                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> ◀ </a></li>
-                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 1 </a></li>
-                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 2 </a></li>
-                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 3 </a></li>
-                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 4 </a></li>
-                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> 5 </a></li>
-                <li><a href="#" style="text-decoration: none; margin-right: 5px;" class="text-secondary"> ▶ </a></li>
-            </ul>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li th:each="pageNum : ${pageList}" class="page-item">
+                        <a class="page-link" th:if="${pageNum} != null" th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     <div th:replace="fragments/footer :: footer"/>

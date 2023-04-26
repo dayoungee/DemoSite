@@ -5,6 +5,9 @@ import com.web.demo.post.domain.PostsRepository;
 import com.web.demo.post.dto.PostsDto;
 import com.web.demo.post.mapper.PostsMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,19 +19,49 @@ import java.util.stream.Collectors;
 public class PostsService {
     private final PostsRepository postsRepository;
     private final PostsMapper postsMapper;
+
+    private static final int BLOCK_PAGE_NUM_CNT = 5; // 블록에 존재하는 페이지 수
+    private static final int PAGE_POST_CNT = 2; // 한 페이지에 존재하는 게시글 수
     @Transactional
     public Long save(PostsDto.Request postsRequestDto) {
         return postsRepository.save(postsMapper.postsRequestToPosts(postsRequestDto)).getId();
     }
 
-    @Transactional
-    public List<PostsDto.Response> findPosts() {
-        return postsRepository.findAll().stream()
+    @Transactional(readOnly = true)
+    public List<PostsDto.Response> findPosts(int pageNum) {
+        Page<Posts> pagePosts = postsRepository.findAll(PageRequest.of(pageNum-1, PAGE_POST_CNT,
+                Sort.by("id").descending()));
+
+        return pagePosts.getContent().stream()
                 .map(postsMapper::postsResponseDtoToPosts)
                 .collect(Collectors.toList());
     }
 
-    // 리팩토링 필요할듯 소스가 중복됨
+    /**
+     * 몇 페이지인지 배열에 담기
+     * */
+    public Integer[] getPageList(Integer pageNum){
+        Integer[] pageList = new Integer[BLOCK_PAGE_NUM_CNT];
+
+        // 전체 게시글
+        Double postsTotalCnt = Double.valueOf(this.getPostsCount());
+        // 올림처리 해야함
+        Integer totalLastPageNum = (int)(Math.ceil((postsTotalCnt/PAGE_POST_CNT)));
+
+        Integer blockLastPageNum = Math.min(totalLastPageNum, pageNum + BLOCK_PAGE_NUM_CNT);
+        pageNum = (pageNum <= 3) ? 1 : pageNum - 2;
+        for(int val = pageNum, i = 0; val <= blockLastPageNum; val++, i++){
+            pageList[i] = val;
+        }
+        return pageList;
+    }
+
+    @Transactional(readOnly = true)
+    public Long getPostsCount() {
+        return postsRepository.count();
+    }
+
+    @Transactional(readOnly = true)
     public PostsDto.Response findPost(Long postId) {
         Posts posts = verifiedPost(postId);
         return postsMapper.postsResponseDtoToPosts(posts);

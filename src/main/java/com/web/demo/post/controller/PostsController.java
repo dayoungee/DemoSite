@@ -14,9 +14,11 @@ import java.util.List;
 public class PostsController {
     private final PostsService postsService;
     @GetMapping("/")
-    public String list(Model model){
-        List<PostsDto.Response> posts = postsService.findPosts();
+    public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum){
+        List<PostsDto.Response> posts = postsService.findPosts(pageNum);
+        Integer[] pageList = postsService.getPageList(pageNum);
         model.addAttribute("posts",posts);
+        model.addAttribute("pageList",pageList);
         return "home";
     }
 
