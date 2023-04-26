@@ -1,8 +1,11 @@
 package com.web.demo.post.controller;
 
+import com.web.demo.common.domain.Pagination;
 import com.web.demo.post.dto.PostsDto;
 import com.web.demo.post.service.PostsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +17,14 @@ import java.util.List;
 public class PostsController {
     private final PostsService postsService;
     @GetMapping("/")
-    public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum){
-        List<PostsDto.Response> posts = postsService.findPosts(pageNum);
+    public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum
+    , Pageable pageable){
+        Page<PostsDto.Response> posts = postsService.findPosts(pageNum, pageable);
         Integer[] pageList = postsService.getPageList(pageNum);
+        Pagination pagination = new Pagination(pageable, posts, pageNum);
         model.addAttribute("posts",posts);
         model.addAttribute("pageList",pageList);
+        model.addAttribute("pagination",pagination);
         return "home";
     }
 
