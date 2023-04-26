@@ -44,8 +44,8 @@ public class PostsService {
         Double postsTotalCnt = Double.valueOf(this.getPostsCount());
         // 올림처리 해야함
         Integer totalLastPageNum = (int)(Math.ceil((postsTotalCnt/PAGE_POST_CNT)));
-        // 마지막 인덱스 나누면 1이됨 그럼 다음 페이지에 갱신되서 이에 대한 처리과정
-        Integer startPageValue = ((double)pageNum/(double)BLOCK_PAGE_NUM_CNT) == 1 ? 0 : (pageNum/BLOCK_PAGE_NUM_CNT);
+        // 마지막 인덱스 예외처리
+        Integer startPageValue = ((double)pageNum/(double)BLOCK_PAGE_NUM_CNT) % 1 == 0.0 ? (pageNum/BLOCK_PAGE_NUM_CNT)-1 : (pageNum/BLOCK_PAGE_NUM_CNT);
 
         Integer blockStartPageNum = startPageValue * BLOCK_PAGE_NUM_CNT == 0
                 ? 1 : (startPageValue * BLOCK_PAGE_NUM_CNT) + 1;
