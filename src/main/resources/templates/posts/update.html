@@ -1,35 +1,36 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
-  <title>Demo Site</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Demo Site</title>
 </head>
 <body>
 
 <div class="container">
-  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-  <form class="card w-150 my-3">
-    <div class="card-header d-flex justify-content-between">
-      <label>번호: [[${postDto.id}]]</label>
-      <label th:inline="text">[[${#temporals.format(postDto.createdDate, 'yyyy-MM-dd HH:mm')}]]</label>
-    </div>
-    <div class="card-header d-flex justify-content-between">
-      <label>작성자: [[${postDto.writer}]]</label>
-      <label><i class=" bi bi-eye-fill"> 조회수: [[${postDto.view}]]</i></label>
-    </div>
-    <div class="card-body">
-      <input type="text" class="form-control" th:value="${postDto.title}">
-      <br/>
-      <textarea rows="10" class="form-control" th:text="${postDto.content}"></textarea>
-    </div>
-  </form>
-  <form id="update-form" th:action="@{'/posts/edit/' + ${postDto.id}}" method="post" style="text-align: center;">
-    <input type="hidden" name="_method" value="put"/>
-    <input type="submit" role="button" class="btn btn-primary bi bi-pencil-square" value="작성">
-    <a href="/" role="button" class="btn btn-info bi bi-arrow-return-left">취소</a>
-  </form>
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form id="update-form" th:object="${postDto}" th:action="@{'/posts/edit/' + ${postDto.id}}" method="post">
+      <input type="hidden" name="_method" value="put"/>
+        <div class="card w-150 my-3">
+            <div class="card-header d-flex justify-content-between">
+                <label>번호: [[${postDto.id}]]</label>
+                <label th:inline="text">[[${#temporals.format(postDto.createdDate, 'yyyy-MM-dd HH:mm')}]]</label>
+            </div>
+            <div class="card-header d-flex justify-content-between">
+                <label>작성자: [[${postDto.writer}]]</label>
+                <label><i class=" bi bi-eye-fill"> 조회수: [[${postDto.view}]]</i></label>
+            </div>
+            <div class="card-body">
+                <input type="text" class="form-control" th:field="*{title}">
+                <br/>
+                <textarea rows="10" class="form-control" th:field="*{content}"></textarea>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <input type="submit" role="button" class="btn btn-primary bi bi-pencil-square" value="작성">
+            <a th:href="@{'/posts/' + ${postDto.id}}" role="button" class="btn btn-info bi bi-arrow-return-left">취소</a>
+        </div>
+    </form>
 
-  <div th:replace="fragments/footer :: footer"/>
+    <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
 </html>

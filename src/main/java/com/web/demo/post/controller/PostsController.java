@@ -23,6 +23,7 @@ public class PostsController {
     @GetMapping("/posts/{post_id}")
     public String getPost(@PathVariable("post_id") Long postId, Model model){
         PostsDto.Response postsResponseDto = postsService.findPost(postId);
+        postsService.increaseView(postId);
         model.addAttribute("postDto",postsResponseDto);
         return "posts/detail";
     }

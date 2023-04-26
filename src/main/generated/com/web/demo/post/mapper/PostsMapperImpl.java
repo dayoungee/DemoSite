@@ -1,20 +1,20 @@
 package com.web.demo.post.mapper;
 
 import com.web.demo.post.domain.Posts;
-
+import com.web.demo.post.dto.PostsDto;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-22T00:59:07+0900",
+    date = "2023-04-25T23:43:41+0900",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 11.0.18 (Amazon.com Inc.)"
 )
 @Component
 public class PostsMapperImpl implements PostsMapper {
 
     @Override
-    public Posts postsRequestToPosts(PostsRequestDto postsRequestDto) {
+    public Posts postsRequestToPosts(PostsDto.Request postsRequestDto) {
         if ( postsRequestDto == null ) {
             return null;
         }
@@ -29,20 +29,20 @@ public class PostsMapperImpl implements PostsMapper {
     }
 
     @Override
-    public PostsResponseDto postsResponseDtoToPosts(Posts posts) {
+    public PostsDto.Response postsResponseDtoToPosts(Posts posts) {
         if ( posts == null ) {
             return null;
         }
 
-        PostsResponseDto.PostsResponseDtoBuilder postsResponseDto = PostsResponseDto.builder();
+        PostsDto.Response.ResponseBuilder response = PostsDto.Response.builder();
 
-        postsResponseDto.id( posts.getId() );
-        postsResponseDto.title( posts.getTitle() );
-        postsResponseDto.content( posts.getContent() );
-        postsResponseDto.writer( posts.getWriter() );
-        postsResponseDto.view( posts.getView() );
-        postsResponseDto.createdDate( posts.getCreatedDate() );
+        response.id( posts.getId() );
+        response.title( posts.getTitle() );
+        response.content( posts.getContent() );
+        response.writer( posts.getWriter() );
+        response.view( posts.getView() );
+        response.createdDate( posts.getCreatedDate() );
 
-        return postsResponseDto.build();
+        return response.build();
     }
 }

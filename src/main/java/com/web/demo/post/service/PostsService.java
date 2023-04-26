@@ -31,9 +31,9 @@ public class PostsService {
     // 리팩토링 필요할듯 소스가 중복됨
     public PostsDto.Response findPost(Long postId) {
         Posts posts = verifiedPost(postId);
-
         return postsMapper.postsResponseDtoToPosts(posts);
     }
+
 
     @Transactional
     public void delete(Long postId) {
@@ -50,5 +50,10 @@ public class PostsService {
 
     public Posts verifiedPost(Long postId){
         return postsRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id: " + postId));
+    }
+
+    @Transactional
+    public int increaseView(Long id){
+        return postsRepository.updateView(id);
     }
 }
