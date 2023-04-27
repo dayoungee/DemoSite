@@ -20,7 +20,7 @@ public class PostsController {
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum
     , Pageable pageable){
         Page<PostsDto.Response> posts = postsService.findPosts(pageNum, pageable);
-        Integer[] pageList = postsService.getPageList(pageNum);
+        Integer[] pageList = postsService.getPageList(pageNum, postsService.getPostsCount());
         Pagination pagination = new Pagination(pageable, posts, pageNum);
         model.addAttribute("posts",posts);
         model.addAttribute("pageList",pageList);
@@ -65,5 +65,19 @@ public class PostsController {
         PostsDto.Response postsResponseDto = postsService.findPost(id);
         model.addAttribute("postDto", postsResponseDto);
         return "posts/detail";
+    }
+
+    @GetMapping("/posts/search")
+    public String search(@RequestParam(value = "keyword") String keyword, Model model,
+                         @RequestParam(value="page", defaultValue = "1") Integer pageNum, Pageable pageable){
+        Page<PostsDto.Response> posts = postsService.findSearchPosts(keyword, pageNum, pageable);
+        Integer[] pageList = postsService.getPageList(pageNum, postsService.getSearchPostsCount(keyword));
+        Pagination pagination = new Pagination(pageable, posts, pageNum);
+        model.addAttribute("posts",posts);
+        model.addAttribute("pageList",pageList);
+        model.addAttribute("pagination",pagination);
+        model.addAttribute("keyword",keyword);
+
+        return "posts/search";
     }
 }

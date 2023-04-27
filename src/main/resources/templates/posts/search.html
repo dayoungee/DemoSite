@@ -9,7 +9,7 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div class="jumbotron my-5">
         <form action="/posts/search" method="GET" class="my-1">
-            <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+            <input name="keyword" type="text" th:value="${keyword}" placeholder="검색어를 입력해주세요">
             <button class="btn btn-secondary btn-sm">검색하기</button>
         </form>
         <div>
@@ -45,7 +45,7 @@
                 </tbody>
             </table>
         </div>
-        <div th:replace="posts/page :: page"/>
+        <div th:replace="posts/searchPage :: searchPage"/>
         <a href="/posts/new" class="btn btn-secondary btn-sm" style="float:right">글쓰기</a>
     </div>
 </div>

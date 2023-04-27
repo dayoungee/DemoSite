@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="searchPage" th:fragment="searchPage">
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            <li th:if="${pagination.hasPrev} == false" class="page-item disabled">
+                <a class="page-link" href="" tabindex="-1">Previous</a>
+            </li>
+            <li th:if="${pagination.hasPrev} == true" class="page-item">
+                <a class="page-link" th:href="@{'/posts/search/?keyword=' + ${keyword} + '&page=' + ${pagination.prevPage}}" tabindex="-1"
+                   aria-disabled="true">Previous</a>
+            </li>
+            <span th:each="pageNum : ${pageList}">
+                    <li th:if="${pageNum == pagination.currentPage && pageNum != null}" class="page-item active">
+                        <a class="page-link" th:href="@{'/posts/search/?keyword=' + ${keyword} + '&page=' + ${pageNum}}">[[${pageNum}]]</a>
+                    </li>
+                        <li th:if="${pageNum != pagination.currentPage && pageNum != null}" class="page-item">
+                        <a class="page-link" th:href="@{'/posts/search/?keyword=' + ${keyword} + '&page=' + ${pageNum}}">[[${pageNum}]]</a>
+                    </li>
+                    </span>
+            <li class="page-item disabled" th:if="${pagination.hasNext} == false">
+                <a class="page-link" aria-disabled="true" href="">Next</a>
+            </li>
+            <li class="page-item" th:if="${pagination.hasNext} == true">
+                <a class="page-link" th:href="@{'/posts/search/?keyword=' + ${keyword} + '&page=' + ${pagination.nextPage}}" aria-disabled="true"
+                   href="">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

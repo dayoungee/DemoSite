@@ -29,19 +29,26 @@ public class PostsService {
     }
 
     @Transactional(readOnly = true)
-    public Page<PostsDto.Response> findPosts(int pageNum, Pageable pageable) {
+    public Page<PostsDto.Response> findPosts( int pageNum, Pageable pageable) {
         pageable = PageRequest.of(pageNum-1, PAGE_POST_CNT, Sort.by("id").descending());
         Page<Posts> pagePosts = postsRepository.findAll(pageable);
+        return postsMapper.pagePostsResponseDtoToPagePosts(pagePosts);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PostsDto.Response> findSearchPosts(String keyword, int pageNum, Pageable pageable) {
+        pageable = PageRequest.of(pageNum-1, PAGE_POST_CNT, Sort.by("id").descending());
+        Page<Posts> pagePosts = postsRepository.findByTitleContaining(keyword, pageable);
         return postsMapper.pagePostsResponseDtoToPagePosts(pagePosts);
     }
 
     /**
      * 몇 페이지인지 배열에 담기
      * */
-    public Integer[] getPageList(Integer pageNum){
+    public Integer[] getPageList(Integer pageNum, Long postsCnt){
         Integer[] pageList = new Integer[BLOCK_PAGE_NUM_CNT];
         // 전체 게시글
-        Double postsTotalCnt = Double.valueOf(this.getPostsCount());
+        Double postsTotalCnt = Double.valueOf(postsCnt);
         // 올림처리 해야함
         Integer totalLastPageNum = (int)(Math.ceil((postsTotalCnt/PAGE_POST_CNT)));
         // 마지막 인덱스 예외처리
@@ -59,6 +66,11 @@ public class PostsService {
     @Transactional(readOnly = true)
     public Long getPostsCount() {
         return postsRepository.count();
+    }
+
+    @Transactional(readOnly = true)
+    public Long getSearchPostsCount(String keyword) {
+        return postsRepository.countByTitleContaining(keyword);
     }
 
     @Transactional(readOnly = true)
