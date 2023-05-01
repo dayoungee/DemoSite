@@ -22,7 +22,7 @@ public class PostsService {
     private final PostsMapper postsMapper;
 
     private static final int BLOCK_PAGE_NUM_CNT = 4; // 블록에 존재하는 페이지 수
-    private static final int PAGE_POST_CNT = 1; // 한 페이지에 존재하는 게시글 수
+    private static final int PAGE_POST_CNT = 3; // 한 페이지에 존재하는 게시글 수
     @Transactional
     public Long save(PostsDto.Request postsRequestDto) {
         return postsRepository.save(postsMapper.postsRequestToPosts(postsRequestDto)).getId();
