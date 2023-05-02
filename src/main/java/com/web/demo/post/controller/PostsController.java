@@ -76,9 +76,13 @@ public class PostsController {
     }
 
     @PutMapping("/posts/edit/{post_id}")
-    public String edit(@PathVariable("post_id") Long id, PostsDto.Request postsRequestDto, Model model){
+    public String edit(@PathVariable("post_id") Long id, PostsDto.Request postsRequestDto, Model model
+    , @LoginUser UsersDto.Response user){
         postsService.update(id, postsRequestDto);
         PostsDto.Response postsResponseDto = postsService.findPost(id);
+        if(user != null){
+            model.addAttribute("user", user);
+        }
         model.addAttribute("postDto", postsResponseDto);
         return "posts/detail";
     }
