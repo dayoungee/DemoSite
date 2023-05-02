@@ -1,8 +1,10 @@
 package com.web.demo.post.controller;
 
 import com.web.demo.common.domain.Pagination;
+import com.web.demo.config.auth.LoginUser;
 import com.web.demo.post.dto.PostsDto;
 import com.web.demo.post.service.PostsService;
+import com.web.demo.user.dto.UsersDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +20,12 @@ public class PostsController {
     private final PostsService postsService;
     @GetMapping("/")
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum
-    , Pageable pageable){
+    , Pageable pageable, @LoginUser UsersDto.Response user){
         Page<PostsDto.Response> posts = postsService.findPosts(pageNum, pageable);
+        if(user != null){
+            model.addAttribute("user", user);
+        }
+
         Integer[] pageList = postsService.getPageList(pageNum, postsService.getPostsCount());
         Pagination pagination = new Pagination(pageable, posts, pageNum);
         model.addAttribute("posts",posts);

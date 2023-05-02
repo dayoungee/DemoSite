@@ -29,6 +29,7 @@ public class UsersDto {
 
         private Users.Role role;
     }
+    @Builder
     @Getter
     public static class Response implements Serializable {
         private Long id;
