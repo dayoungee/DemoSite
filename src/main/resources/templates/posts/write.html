@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label>작성자</label>
-                <input type="text" class="form-control" name="writer" placeholder="닉네임을 입력하세요">
+                <input class="form-control" name="writer" th:value="${user.nickname}" readonly>
             </div>
             <div class="form-group">
                 <label>내용</label>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,8 +36,11 @@ public class PostsController {
     }
 
     @GetMapping("/posts/{post_id}")
-    public String getPost(@PathVariable("post_id") Long postId, Model model){
+    public String getPost(@PathVariable("post_id") Long postId, Model model, @LoginUser UsersDto.Response user){
         PostsDto.Response postsResponseDto = postsService.findPost(postId);
+        if(user != null){
+            model.addAttribute("user", user);
+        }
         postsService.increaseView(postId);
         model.addAttribute("postDto",postsResponseDto);
         return "posts/detail";
@@ -48,7 +52,10 @@ public class PostsController {
     }
 
     @GetMapping("/posts/new")
-    public String write(){
+    public String write(Model model, @LoginUser UsersDto.Response user){
+        if(user != null){
+            model.addAttribute("user", user);
+        }
         return "posts/write";
     }
 
@@ -59,8 +66,11 @@ public class PostsController {
     }
 
     @GetMapping("/posts/edit/{post_id}")
-    public String edit(@PathVariable("post_id") Long id, Model model){
+    public String edit(@PathVariable("post_id") Long id, Model model, @LoginUser UsersDto.Response user){
         PostsDto.Response postsResponseDto = postsService.findPost(id);
+        if(user != null){
+            model.addAttribute("user", user);
+        }
         model.addAttribute("postDto", postsResponseDto);
         return "posts/update";
     }
@@ -75,8 +85,11 @@ public class PostsController {
 
     @GetMapping("/posts/search")
     public String search(@RequestParam(value = "keyword") String keyword, Model model,
-                         @RequestParam(value="page", defaultValue = "1") Integer pageNum, Pageable pageable){
+                         @RequestParam(value="page", defaultValue = "1") Integer pageNum, Pageable pageable, @LoginUser UsersDto.Response user){
         Page<PostsDto.Response> posts = postsService.findSearchPosts(keyword, pageNum, pageable);
+        if(user != null){
+            model.addAttribute("user", user);
+        }
         Integer[] pageList = postsService.getPageList(pageNum, postsService.getSearchPostsCount(keyword));
         Pagination pagination = new Pagination(pageable, posts, pageNum);
         model.addAttribute("posts",posts);
