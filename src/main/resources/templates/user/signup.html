@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Demo Site</title>
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+  <div class="justify-content-center">
+        <div class="card my-5 text-center">
+          <div class="card-body">
+            <h2 class="fw-bold my-2">회원가입</h2>
+            <a href="/signup/google" role="button" class="btn btn-outline-primary my-1 w-25">구글로 회원가입</a> <br>
+            <a href="/signup/naver" role="button" class="btn btn-outline-success my-1 w-25">네이버로 회원가입</a> <br>
+            <a href="/auth/signup/email" role="button" class="btn btn-outline-secondary my-1 w-25">이메일로 회원가입</a>
+          </div>
+        </div>
+  </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

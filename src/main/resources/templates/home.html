@@ -8,7 +8,7 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
     <div class="jumbotron my-5">
-        <form action="/posts/search" method="GET" class="my-1">
+        <form th:action="@{/posts/search}" method="GET" class="my-1">
             <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
             <button class="btn btn-secondary btn-sm">검색하기</button>
         </form>

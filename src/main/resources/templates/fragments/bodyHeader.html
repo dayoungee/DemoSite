@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <div class="header" th:fragment="bodyHeader">
-    <a class="btn btn-primary mx-1 my-3 btn-sm" style="float:right" href="/members/new">회원 가입</a>
-    <a class="btn btn-secondary mx-1 my-3 btn-sm" style="float:right" href="/members">로그인</a>
+    <a sec:authorize="!isAuthenticated()" class="btn btn-primary mx-1 my-3 btn-sm" style="float:right" href="/auth/signup">회원 가입</a>
+    <a sec:authorize="!isAuthenticated()" class="btn btn-secondary mx-1 my-3 btn-sm" style="float:right" href="/auth/login">로그인</a>
+
+    <p sec:authorize="isAuthenticated()" th:text="${#authentication.name}"></p>
+    <a sec:authorize="isAuthenticated()" class="btn btn-secondary mx-1 my-3 btn-sm" style="float:right" href="/auth/logout">로그아웃</a>
     <a href="/"><h1 class="text-muted my-2">Demo Site</h1></a>
 </div>
