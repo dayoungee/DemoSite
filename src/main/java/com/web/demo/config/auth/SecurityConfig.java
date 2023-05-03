@@ -11,12 +11,16 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소로 접근하면 권한 및 인증을 미리 체크
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService customUserDetailsService;
+
+    // 로그인 실패 핸들러 의존성 주입
+    private final AuthenticationFailureHandler customFailureHandler;
 
     // 비밀번호 암호화
     @Bean
@@ -51,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/auth/login") // /login으로 설정하면 기본으로 제공해주는 로그인 폼을 사용할 수 있지만, 난 커스텀을 사용할 것임
                 .loginProcessingUrl("/loginProc") // 시큐리티가 해당 주소로 오는 요청을 낚아채서 수행한다
+                .failureHandler(customFailureHandler)
                 .defaultSuccessUrl("/") // 로그인 성공 시 이동 페이지
                 .and()
                 .logout()// 로그아웃 지원
