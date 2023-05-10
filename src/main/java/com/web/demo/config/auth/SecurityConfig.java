@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -21,6 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // 로그인 실패 핸들러 의존성 주입
     private final AuthenticationFailureHandler customFailureHandler;
+    // OAuth
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     // 비밀번호 암호화
     @Bean
@@ -59,7 +62,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/") // 로그인 성공 시 이동 페이지
                 .and()
                 .logout()// 로그아웃 지원
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/")// 로그아웃 성공시 이동 페이지
-                .invalidateHttpSession(true); // http 세션 초기화
+                .and()
+                .oauth2Login()
+                .userInfoEndpoint() // OAuth2 로그인 성공 후 가져올 설정
+                .userService(customOAuth2UserService);// 서버에서 사용자 정보를 가져온 상태에서 추가로 진행하고자 하는 기능 명식
+
     }
 }

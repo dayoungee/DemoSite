@@ -12,7 +12,7 @@
         <div class="card w-150 my-3">
             <div class="card-header d-flex justify-content-between">
                 <label>번호: [[${postDto.id}]]</label>
-                <label th:inline="text">[[${#temporals.format(postDto.createdDate, 'yyyy-MM-dd HH:mm')}]]</label>
+                <label th:inline="text">[[${postDto.createdDate}]]</label>
             </div>
             <div class="card-header d-flex justify-content-between">
                 <label>작성자: [[${postDto.writer}]]</label>

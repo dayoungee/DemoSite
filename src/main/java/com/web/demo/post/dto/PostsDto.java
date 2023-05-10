@@ -33,6 +33,6 @@ public class PostsDto {
 
         private int view;
 
-        private LocalDateTime createdDate;
+        private String createdDate;
     }
 }
