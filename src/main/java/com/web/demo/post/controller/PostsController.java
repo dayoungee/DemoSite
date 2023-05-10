@@ -40,6 +40,9 @@ public class PostsController {
         PostsDto.Response postsResponseDto = postsService.findPost(postId);
         if(user != null){
             model.addAttribute("user", user);
+            if(postsResponseDto.getUser().getId().equals(user.getId())){
+                model.addAttribute("writer", true);
+            }
         }
         postsService.increaseView(postId);
         model.addAttribute("postDto",postsResponseDto);
@@ -60,8 +63,8 @@ public class PostsController {
     }
 
     @PostMapping("/posts/new")
-    public String save(PostsDto.Request postsRequestDto){
-        postsService.save(postsRequestDto);
+    public String save(PostsDto.Request postsRequestDto, @LoginUser UsersDto.Response userSessionDto){
+        postsService.save(userSessionDto.getNickname(), postsRequestDto);
         return "redirect:/";
     }
 

@@ -4,6 +4,8 @@ import com.web.demo.post.domain.Posts;
 import com.web.demo.post.domain.PostsRepository;
 import com.web.demo.post.dto.PostsDto;
 import com.web.demo.post.mapper.PostsMapper;
+import com.web.demo.user.domain.Users;
+import com.web.demo.user.domain.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +22,15 @@ import java.util.stream.Collectors;
 public class PostsService {
     private final PostsRepository postsRepository;
     private final PostsMapper postsMapper;
+    private final UsersRepository usersRepository;
 
     private static final int BLOCK_PAGE_NUM_CNT = 4; // 블록에 존재하는 페이지 수
     private static final int PAGE_POST_CNT = 3; // 한 페이지에 존재하는 게시글 수
     @Transactional
-    public Long save(PostsDto.Request postsRequestDto) {
+    public Long save(String nickName, PostsDto.Request postsRequestDto) {
+        Users user = usersRepository.findByNickname(nickName);
+        postsRequestDto.setUser(user);
+
         return postsRepository.save(postsMapper.postsRequestToPosts(postsRequestDto)).getId();
     }
 

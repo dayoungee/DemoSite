@@ -1,6 +1,7 @@
 package com.web.demo.post.domain;
 
 import com.web.demo.common.domain.BaseTimeEntity;
+import com.web.demo.user.domain.Users;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,6 +25,10 @@ public class Posts extends BaseTimeEntity {
     private String writer;
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
+
+    @ManyToOne(fetch = FetchType.LAZY) // EAGER 전략은 N+1 문제를 야기할 수 있어 LAZY 전략으로
+    @JoinColumn(name = "users_id")
+    private Users user;
 
     public void update(String title, String content){
         this.title = title;

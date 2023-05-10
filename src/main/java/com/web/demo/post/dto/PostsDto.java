@@ -1,5 +1,6 @@
 package com.web.demo.post.dto;
 
+import com.web.demo.user.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +16,11 @@ public class PostsDto {
         private String title;
         private String content;
         private String writer;
+        private Users user;
+
+        public void setUser(Users user){
+            this.user = user;
+        }
     }
 
     @Builder
@@ -34,5 +40,7 @@ public class PostsDto {
         private int view;
 
         private String createdDate;
+
+        private Users user;
     }
 }

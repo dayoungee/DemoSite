@@ -25,9 +25,9 @@
     <form id="delete-form" th:action="@{'/posts/' + ${postDto.id}}" method="post" style="text-align: center;">
 
         <a href="/" role="button" class="btn btn-info bi bi-arrow-return-left"> 목록</a>
-        <a th:href="@{'/posts/edit/' + ${postDto.id}}" role="button" class="btn btn-primary bi bi-pencil-square"> 수정</a>
+        <a th:href="@{'/posts/edit/' + ${postDto.id}}" th:if="${writer} == true" role="button" class="btn btn-primary bi bi-pencil-square"> 수정</a>
         <input type="hidden" name="_method" value="delete"/>
-        <button id="btn-delete" class="btn btn-danger bi bi-trash"> 삭제</button>
+        <button th:if="${writer} == true" id="btn-delete" class="btn btn-danger bi bi-trash"> 삭제</button>
     </form>
 
     <div th:replace="fragments/footer :: footer"/>
