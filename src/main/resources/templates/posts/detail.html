@@ -29,7 +29,8 @@
         <input type="hidden" name="_method" value="delete"/>
         <button th:if="${writer} == true" id="btn-delete" class="btn btn-danger bi bi-trash"> 삭제</button>
     </form>
-
+    <div th:if="${comments} != null" th:replace="comment/list :: commentlist"/>
+    <div th:replace="comment/form :: commentForm"/>
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>

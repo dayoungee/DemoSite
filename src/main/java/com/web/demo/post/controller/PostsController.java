@@ -1,5 +1,6 @@
 package com.web.demo.post.controller;
 
+import com.web.demo.comment.dto.CommentDto;
 import com.web.demo.common.domain.Pagination;
 import com.web.demo.config.auth.LoginUser;
 import com.web.demo.post.dto.PostsDto;
@@ -38,9 +39,14 @@ public class PostsController {
     @GetMapping("/posts/{post_id}")
     public String getPost(@PathVariable("post_id") Long postId, Model model, @LoginUser UsersDto.Response user){
         PostsDto.Response postsResponseDto = postsService.findPost(postId);
+        List<CommentDto.Response> comments = postsResponseDto.getComments();
+
+        if(comments != null && !comments.isEmpty()){
+            model.addAttribute("comments",comments);
+        }
         if(user != null){
             model.addAttribute("user", user);
-            if(postsResponseDto.getUser().getId().equals(user.getId())){
+            if(postsResponseDto.getUserId().equals(user.getId())){
                 model.addAttribute("writer", true);
             }
         }

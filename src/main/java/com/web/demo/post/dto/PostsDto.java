@@ -1,5 +1,6 @@
 package com.web.demo.post.dto;
 
+import com.web.demo.comment.dto.CommentDto;
 import com.web.demo.user.domain.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PostsDto {
     @Getter
@@ -41,6 +43,7 @@ public class PostsDto {
 
         private String createdDate;
 
-        private Users user;
+        private Long userId;
+        private List<CommentDto.Response> comments;
     }
 }

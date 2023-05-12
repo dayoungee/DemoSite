@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="comments" th:fragment="commentlist">
+    <div class="card">
+        <div class="card-header bi bi-chat-dots">Comments</div>
+        <ul  class="list-group-flush">
+          <li th:each="comment : ${comments}" class="list-group-item">
+           <span>
+            <span style="font-size: small">[[${comment.nickname}]]</span>
+            <span style="font-size: xx-small">[[${comment.createdDate}]]</span>&nbsp;
+            <button class="btn-xs btn-secondary "> 수정</button>
+            <button class="btn-xs btn-secondary "> 삭제</button>
+          </span>
+              <div>[[${comment.comment}]]</div>
+          </li>
+        </ul>
+    </div>
+</div>
