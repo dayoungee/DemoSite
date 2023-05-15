@@ -34,4 +34,8 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name = "posts_id") // 외래키
     private Posts posts;
 
+    public void update(String comment){
+        this.comment = comment;
+    }
+
 }

@@ -3,16 +3,28 @@
 <div class="comments" th:fragment="commentlist">
     <div class="card">
         <div class="card-header bi bi-chat-dots">Comments</div>
-        <ul  class="list-group-flush">
-          <li th:each="comment : ${comments}" class="list-group-item">
+        <ul class="list-group-flush">
+            <li th:each="comment : ${comments}" class="list-group-item">
            <span>
             <span style="font-size: small">[[${comment.nickname}]]</span>
             <span style="font-size: xx-small">[[${comment.createdDate}]]</span>&nbsp;
-            <button class="btn-xs btn-secondary "> 수정</button>
-            <button class="btn-xs btn-secondary "> 삭제</button>
+            <button type="button" data-toggle="collapse" th:data-target="'.multi-collapse-'+${comment.id}"
+               class="bi bi-pencil-square"></button>
+            <button type="button" th:postId="${postDto.id}" th:commentId="${comment.id}"
+                    onclick="main.commentDelete(this.getAttribute('postId'),this.getAttribute('commentId'))" class="bi bi-x-square"></button>
           </span>
-              <div>[[${comment.comment}]]</div>
-          </li>
+                <div>[[${comment.comment}]]</div>
+                <form th:class="'collapse multi-collapse-'+ ${comment.id}">
+                    <input type="hidden" id="id" th:value="${comment.id}">
+                    <input type="hidden" id="postsId" th:value="${postDto.id}">
+                    <div class="form-group">
+                        <textarea class="form-control" id="comment-content" rows="3">[[${comment}]]</textarea>
+                    </div>
+                    <button type="button" id="btn-comment-update" class="btn btn-outline-primary bi bi-pencil-square">
+                        수정
+                    </button>
+                </form>
+            </li>
         </ul>
     </div>
 </div>

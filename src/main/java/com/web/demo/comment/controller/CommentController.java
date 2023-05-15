@@ -7,10 +7,7 @@ import com.web.demo.user.dto.UsersDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,4 +20,15 @@ public class CommentController {
         return ResponseEntity.ok(commentService.save(id, user.getNickname(), request));
     }
 
+    @PutMapping("/posts/{posts_id}/comments/{id}")
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody CommentDto.Request request){
+        commentService.update(id, request);
+        return ResponseEntity.ok(id);
+    }
+
+    @DeleteMapping("/posts/{posts_id}/comments/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id){
+        commentService.delete(id);
+        return ResponseEntity.ok(id);
+    }
 }

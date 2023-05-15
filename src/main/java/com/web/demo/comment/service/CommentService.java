@@ -10,7 +10,10 @@ import com.web.demo.user.domain.Users;
 import com.web.demo.user.domain.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class CommentService {
     private final CommentRepository commentRepository;
@@ -29,5 +32,18 @@ public class CommentService {
         commentRepository.save(comment);
 
         return request.getId();
+    }
+
+    public void update(Long id, CommentDto.Request request) {
+        verifiedComment(id).update(request.getComment());
+    }
+
+
+    public void delete(Long id){
+        commentRepository.delete(verifiedComment(id));
+    }
+
+    public Comment verifiedComment(Long id){
+        return commentRepository.findById(id).orElseThrow( () -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. " + id));
     }
 }
