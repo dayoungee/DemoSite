@@ -8,19 +8,23 @@
            <span>
             <span style="font-size: small">[[${comment.nickname}]]</span>
             <span style="font-size: xx-small">[[${comment.createdDate}]]</span>&nbsp;
-            <button type="button" data-toggle="collapse" th:data-target="'.multi-collapse-'+${comment.id}"
-               class="bi bi-pencil-square"></button>
-            <button type="button" th:postId="${postDto.id}" th:commentId="${comment.id}"
-                    onclick="main.commentDelete(this.getAttribute('postId'),this.getAttribute('commentId'))" class="bi bi-x-square"></button>
-          </span>
-                <div>[[${comment.comment}]]</div>
-                <form th:class="'collapse multi-collapse-'+ ${comment.id}">
+           </span>
+                <a type="button" data-toggle="collapse"
+                   th:attr="data-target='.multi-collapse-' + ${comment.id}"
+                        class="bi bi-pencil-square"></a>
+                <a type="button" th:postId="${postDto.id}" th:commentId="${comment.id}"
+                        onclick="main.commentDelete(this.getAttribute('postId'),this.getAttribute('commentId'))"
+                        class="bi bi-x-square"></a>
+
+                <p th:class="'collapse multi-collapse-'+${comment.id} +' show'">[[${comment.comment}]]</p>
+                <form th:class="'collapse multi-collapse-' + ${comment.id}">
                     <input type="hidden" id="id" th:value="${comment.id}">
                     <input type="hidden" id="postsId" th:value="${postDto.id}">
                     <div class="form-group">
-                        <textarea class="form-control" id="comment-content" rows="3">[[${comment}]]</textarea>
+                        <textarea class="form-control" id="comment-content" rows="3">[[${comment.comment}]]</textarea>
                     </div>
-                    <button type="button" id="btn-comment-update" class="btn btn-outline-primary bi bi-pencil-square">
+                    <button type="button" id="btn-comment-update"
+                            class="btn btn-outline-primary bi bi-pencil-square">
                         수정
                     </button>
                 </form>

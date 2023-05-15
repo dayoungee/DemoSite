@@ -6,7 +6,9 @@ const main = {
             _this.commentSave();
         });
         document.querySelectorAll('#btn-comment-update').forEach(function (item) {
+            console.log("tpffprxj");
             item.addEventListener('click', function () { // 버튼 클릭 이벤트 발생시
+                console.log("실행122");
                 const form = this.closest('form'); // btn의 가장 가까운 조상의 Element(form)를 반환 (closest)
                 _this.commentUpdate(form); // 해당 폼으로 업데이트 수행
             });
