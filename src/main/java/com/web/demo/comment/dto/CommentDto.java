@@ -37,6 +37,7 @@ public class CommentDto {
         private String createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
         private String modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
         private String nickname;
+        private Long userId;
         private Long postsId;
     }
 }

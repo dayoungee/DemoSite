@@ -49,6 +49,10 @@ public class PostsController {
             if(postsResponseDto.getUserId().equals(user.getId())){
                 model.addAttribute("writer", true);
             }
+
+            if (comments.stream().anyMatch(s -> s.getUserId().equals(user.getId()))) {
+                model.addAttribute("isWriter", true);
+            }
         }
         postsService.increaseView(postId);
         model.addAttribute("postDto",postsResponseDto);

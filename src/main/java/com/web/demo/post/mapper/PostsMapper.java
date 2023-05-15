@@ -32,6 +32,7 @@ public interface PostsMapper {
             CommentDto.Response commentDto = CommentDto.Response.builder()
                     .postsId(o.getPosts().getId())
                     .nickname(o.getUser().getNickname())
+                    .userId(o.getUser().getId())
                     .comment(o.getComment())
                     .modifiedDate(o.getModifiedDate())
                     .createdDate(o.getModifiedDate())

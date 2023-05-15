@@ -44,8 +44,20 @@ const main = {
         const data = {
             id: form.querySelector('#id').value,
             postsId: form.querySelector('#postsId').value,
-            comment: form.querySelector('#comment-content').value
+            comment: form.querySelector('#comment-content').value,
+            writerUserId: form.querySelector('#writerUserId').value,
+            sessionUserId: form.querySelector('#sessionUserId').value
         }
+        console.log(data.writerUserId);
+        console.log(data.sessionUserId);
+
+        if (data.writerUserId !== data.sessionUserId) {
+            alert("본인이 작성한 댓글만 수정 가능합니다.");
+            return false;
+        }
+
+        console.log("commentWriterID : " + data.writerUserId);
+        console.log("sessionUserID : " + data.sessionUserId);
 
         if (!data.comment || data.comment.trim() === "") {
             alert("공백 또는 입력하지 않은 부분이 있습니다.");
@@ -68,19 +80,24 @@ const main = {
     },
 
     /** 댓글 삭제 */
-    commentDelete: function (postsId, commentId) {
-        const con_check = confirm("삭제하시겠습니까?");
-        if (con_check === true) {
-            $.ajax({
-                type: 'DELETE',
-                url: '/posts/' + postsId + '/comments/' + commentId,
-                dataType: 'JSON',
-            }).done(function () {
-                alert('댓글이 삭제되었습니다.');
-                window.location.reload();
-            }).fail(function (error) {
-                alert(JSON.stringify(error));
-            });
+    commentDelete: function (postsId, commentId, commentWriterId, sessionUserId) {
+
+        if (commentWriterId !== sessionUserId) {
+            alert("본인이 작성한 댓글만 삭제 가능합니다.");
+        } else {
+            const con_check = confirm("삭제하시겠습니까?");
+            if (con_check === true) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/posts/' + postsId + '/comments/' + commentId,
+                    dataType: 'JSON',
+                }).done(function () {
+                    alert('댓글이 삭제되었습니다.');
+                    window.location.reload();
+                }).fail(function (error) {
+                    alert(JSON.stringify(error));
+                });
+            }
         }
     }
 };
