@@ -1,0 +1,27 @@
+
+  <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true" th:fragment="chat-modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">채팅방 생성</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/chat/create}" method="post" onsubmit="main.createChatRoom()">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="roomName" class="col-form-label">방 이름</label>
+              <input type="text" class="form-control" id="roomName" name="name">
+            </div>
+            <div class="mb-3">
+              <label for="maxUserCnt" class="col-form-label">채팅방 인원 설정</label>
+              <input type="text" class="form-control" id="maxUserCnt" name="maxUserCnt">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary" value="방 생성하기">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

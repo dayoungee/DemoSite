@@ -6,6 +6,7 @@
     <a sec:authorize="!isAuthenticated()" class="btn btn-primary mx-1 my-3 btn-sm" style="float:right" href="/auth/signup">회원 가입</a>
     <a sec:authorize="!isAuthenticated()" class="btn btn-secondary mx-1 my-3 btn-sm" style="float:right" href="/auth/login">로그인</a>
 
+    <a sec:authorize="isAuthenticated()" class="btn btn-secondary mx-1 my-3 btn-sm" style="float:right" href="/chat">채팅하기</a>
     <a sec:authorize="isAuthenticated()" class="btn btn-secondary mx-1 my-3 btn-sm" style="float:right" href="/logout">로그아웃</a>
     <p sec:authorize="isAuthenticated()" class="mx-1 my-3" style="float: right">[[${user.nickname}]] 님, 환영합니다.</p>
     <a href="/"><h1 class="text-muted my-2">Demo Site</h1></a>

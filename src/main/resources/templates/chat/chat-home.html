@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+  <title>Demo Site</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  <div class="jumbotron my-5">
+    <form th:action="@{/chat/search}" method="GET" class="my-1">
+      <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+      <button class="btn btn-secondary btn-sm">검색하기</button>
+    </form>
+    <div>
+      <table class="table table-hover table-striped text-center ">
+        <thead class="table-primary">
+        <th>번호</th>
+        <th>방 이름</th>
+        <th>인원 수</th>
+        <th>등록일</th>
+        </thead>
+
+        <tbody>
+        <tr th:each="chat : ${chatRoom}">
+          <td>
+            <span th:text="${chat.id}"></span>
+          </td>
+          <td>
+            <a th:href="@{'/chat/' + ${chat.id}}" style="text-decoration: none;">
+              <span th:text="${chat.name}"></span>
+            </a>
+          </td>
+          <td>
+            <span th:text="${chat.userCount}"></span>
+          </td>
+          <td>
+            <span th:text="${chat.createdDate}"></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--<div th:replace="posts/page :: page"/>-->
+    <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#roomModal" style="float:right">방 생성</button>
+  </div>
+</div>
+<div th:replace="chat/chat-modal :: chat-modal"/>
+<div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

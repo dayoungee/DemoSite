@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()// csrf토큰이 없이 요청하면 해당 요청을 막기 때문에 비활성화
                 .authorizeRequests()//request에 따라 접근을 제한
-                .antMatchers("/", "/auth/**", "/posts/detail/**", "/posts/search/**")// 특정 경로에 대해서
+                .antMatchers("/","/chat/**" ,"/auth/**", "/posts/detail/**", "/posts/search/**")// 특정 경로에 대해서
                 .permitAll()// 접근이 가능하다.
                 .anyRequest()// 그 외의 경로는
                 .authenticated()// 인증된 사용자만 접근이 가능

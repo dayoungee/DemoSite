@@ -99,7 +99,44 @@ const main = {
                 });
             }
         }
+    },
+    createChatRoom: function () {
+        let name = $("#roomName").val();
+
+        if (name === "") {
+            alert("방 이름은 필수입니다")
+            return false;
+        }
+        if ($("#" + name).length > 0) {
+            alert("이미 존재하는 방입니다")
+            return false;
+        }
+
+        // 일반채팅 : 최소 방 인원 수는 2, 최대 100명
+        if ($("#maxUserCnt").val() <= 1) {
+            alert("채팅은 최소 2명 이상이어야 합니다.");
+            return false;
+        } else if ($("#maxUserCnt").val() > 100) {
+            alert("100명 이상은 허용되지 않습니다.");
+            return false;
+        }
+
+        if (!numberChk()) {
+            return false;
+        }
+
+        return true;
     }
 };
+
+function numberChk(){
+    let check = /^[0-9]+$/;
+    if (!check.test($("#maxUserCnt").val())) {
+        alert("채팅 인원에는 숫자만 입력 가능합니다!!")
+        return false;
+    }
+    return true;
+}
+
 
 main.init();
