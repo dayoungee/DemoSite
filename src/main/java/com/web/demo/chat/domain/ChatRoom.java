@@ -27,7 +27,11 @@ public class ChatRoom extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int maxUserCnt;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "users_id")
     private List<Users> users;
+
+    public void addUser(Users user){
+        this.users.add(user);
+    }
 }

@@ -1,11 +1,8 @@
 package com.web.demo.chat.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Getter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,7 +11,7 @@ public class ChatDto {
         ENTER, TALK, LEAVE;
     }
     private MessageType type;
-    private String roomId;
+    private Long roomId;
     private String sender;
     private String message;
     private String time;

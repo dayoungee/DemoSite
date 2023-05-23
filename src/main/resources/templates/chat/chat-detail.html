@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Demo Site</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+  <div id="chat-page">
+    <div class="btn-group dropend">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="showUserListButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            참가한 유저
+        </button>
+        <button onclick="connect()">시작하기</button>
+        <div id="list" class="dropdown-menu" aria-labelledby="showUserListButton">
+
+        </div>
+    </div>
+    <div class="chat-container">
+        <input type="hidden" readonly="readonly" th:value="${chatRoom.id}" id="chatroom-id">
+        <input type="hidden" readonly="readonly" th:value="${user.nickname}" id="user-name">
+        <div class="chat-header">
+            <h2>[[${chatRoom.name}]]</h2>
+        </div>
+        <div class="connecting" id="connecting">
+            Connecting...
+        </div>
+        <ul id="messageArea">
+        </ul>
+        <form id="messageForm" name="messageForm" nameForm="messageForm">
+            <div class="form-group">
+                <div class="input-group clearfix">
+                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
+                           class="form-control"/>
+                    <button type="submit" class="primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/js/chat.js"></script>
+</body>
+</html>
